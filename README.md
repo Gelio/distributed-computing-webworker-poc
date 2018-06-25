@@ -60,3 +60,5 @@ or Node's `http-server` may be used:
 ```bash
 npx http-server -c-1
 ```
+
+The `webworker.html` file should be opened.
