@@ -50,8 +50,11 @@ namespace ServerRunner
                 if (typeExample == null)
                     continue;
 
-                if (assembly.CreateInstance(assemblyType.FullName) is T instance)
+                T instance = (T) assembly.CreateInstance(assemblyType.FullName);
+                if (instance != null)
+                {
                     return instance;
+                }
             }
 
             throw new Exception("The assembly does not contain an class that implements the " + nameof(IDistributedTask) + " interface");
