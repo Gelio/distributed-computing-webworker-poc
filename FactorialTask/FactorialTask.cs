@@ -2,9 +2,9 @@
 
 namespace FactorialTask
 {
-    public class FactorialTask : ITask
+    public class FactorialTask
     {
-        public string Perform(string input)
+        public static string Perform(string input)
         {
             var x = int.Parse(input);
             var result = Factorial(x);
@@ -12,7 +12,7 @@ namespace FactorialTask
             return result.ToString();
         }
 
-        private int Factorial(int n)
+        private static int Factorial(int n)
         {
             if (n < 0)
             {
