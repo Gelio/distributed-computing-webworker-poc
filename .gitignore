@@ -327,3 +327,7 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder
 .mfractor/
+
+
+# Include files from the mono-wasm-sdk
+!mono-wasm-sdk/*
