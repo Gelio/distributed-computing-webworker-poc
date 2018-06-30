@@ -45,7 +45,6 @@ worker, displaying the results as they arrive.
 ### Compile code to WebAssembly
 
 ```shell
-export MONO_SDK=path_to_mono_sdk
 ./build.sh
 ```
 

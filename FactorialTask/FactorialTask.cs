@@ -4,15 +4,24 @@ namespace FactorialTask
 {
     public class FactorialTask
     {
-        public static string Perform(string input)
+        private int HighestResult = int.MinValue;
+
+        public FactorialTask() { }
+
+        public string Perform(string input)
         {
             var x = int.Parse(input);
             var result = Factorial(x);
 
-            return result.ToString();
+            if (HighestResult < result)
+            {
+                HighestResult = result;
+            }
+
+            return result.ToString() + " " + HighestResult.ToString();
         }
 
-        private static int Factorial(int n)
+        private int Factorial(int n)
         {
             if (n < 0)
             {
