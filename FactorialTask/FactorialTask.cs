@@ -1,8 +1,9 @@
-﻿using Common;
+﻿using System;
+using Common;
 
 namespace FactorialTask
 {
-    public class FactorialTask
+    public class FactorialTask :ITask
     {
         private int HighestResult = int.MinValue;
 

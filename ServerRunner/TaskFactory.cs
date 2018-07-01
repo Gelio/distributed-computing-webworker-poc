@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Common;
 
 namespace ServerRunner
 {
-    class TaskFactory : ITaskFactory
+    internal class TaskFactory : ITaskFactory
     {
         public List<string> TaskInputs { get; } = new List<string>();
 
