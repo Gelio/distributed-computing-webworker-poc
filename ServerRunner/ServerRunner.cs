@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using Common;
 
@@ -50,7 +48,7 @@ namespace ServerRunner
                 if (typeExample == null)
                     continue;
 
-                T instance = (T) assembly.CreateInstance(assemblyType.FullName);
+                T instance = (T)assembly.CreateInstance(assemblyType.FullName);
                 if (instance != null)
                 {
                     return instance;
