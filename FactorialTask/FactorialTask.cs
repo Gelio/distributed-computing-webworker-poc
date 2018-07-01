@@ -1,13 +1,18 @@
-﻿using System;
+using System;
 using Common;
 
 namespace FactorialTask
 {
-    public class FactorialTask :ITask
+    public class FactorialTask : ITask
     {
         private int HighestResult = int.MinValue;
+        private int Seed;
 
-        public FactorialTask() { }
+        public FactorialTask()
+        {
+            Seed = new Random().Next();
+            Console.WriteLine("Constructor" + Seed);
+        }
 
         public string Perform(string input)
         {
@@ -19,7 +24,7 @@ namespace FactorialTask
                 HighestResult = result;
             }
 
-            return result.ToString() + " " + HighestResult.ToString();
+            return result.ToString() + " " + HighestResult.ToString() + " " + Seed;
         }
 
         private int Factorial(int n)
@@ -37,6 +42,11 @@ namespace FactorialTask
             }
 
             return result;
+        }
+
+        public static FactorialTask GetInstance()
+        {
+            return new FactorialTask();
         }
     }
 }
