@@ -10,31 +10,27 @@ namespace ServerRunner
     {
         public static void Main()
         {
-            Console.WriteLine("Path to DLL containing the distributed task:");
-            var distributedTaskAssemblyPath = Console.ReadLine();
-            var distributedTaskAssembly = Assembly.LoadFrom(distributedTaskAssemblyPath);
-            var distributedTask = GetTypeFromAssembly<IDistributedTask>(distributedTaskAssembly);
-
             /**
-             * The DLL with the ITask is loaded here just in order to run the task and for the IDistributedTask
+             * The DLL with the ISubTask and ITask is loaded here just in order to run the task and for the ITask
              * to be able to aggregate the results.
              * 
              * In the final version the input data will be sent to the distributed nodes who will be responsible
-             * for executing the ITask compiled to JS.
+             * for executing the ISubTask compiled to JS.
              */
             Console.WriteLine("Path to DLL containing the task:");
             var taskAssemblyPath = Console.ReadLine();
             var taskAssembly = Assembly.LoadFrom(taskAssemblyPath);
             var task = GetTypeFromAssembly<ITask>(taskAssembly);
+            var distributedTask = GetTypeFromAssembly<ISubTask>(taskAssembly);
 
             Console.WriteLine($"Input data for the distributed task ({distributedTask.GetType().FullName}):");
             var inputData = Console.ReadLine();
 
-            var taskFactory = new TaskFactory();
-            distributedTask.DefineTasks(inputData, taskFactory);
+            var taskFactory = new SubTaskFactory();
+            task.DefineTasks(inputData, taskFactory);
 
-            var results = taskFactory.TaskInputs.Select(task.Perform).ToArray();
-            var aggregatedResult = distributedTask.AggregateResults(inputData, results);
+            var results = taskFactory.TaskInputs.Select(distributedTask.Perform).ToArray();
+            var aggregatedResult = task.AggregateResults(inputData, results);
 
             Console.WriteLine("The final aggregated result is: " + aggregatedResult);
         }
@@ -55,7 +51,7 @@ namespace ServerRunner
                 }
             }
 
-            throw new Exception("The assembly does not contain an class that implements the " + nameof(IDistributedTask) + " interface");
+            throw new Exception("The assembly does not contain an class that implements the " + typeof(T).Name + " interface");
         }
     }
 }

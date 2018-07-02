@@ -20,7 +20,7 @@ function onAppInit() {
   const config = {
     assemblyName: 'FactorialTask',
     namespace: 'FactorialTask',
-    className: 'FactorialTask',
+    className: 'FactorialSubTask',
     performMethodName: 'Perform'
   };
 
