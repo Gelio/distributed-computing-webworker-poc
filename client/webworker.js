@@ -39,6 +39,8 @@ function onAppInit() {
     -1
   );
 
+  const getInstanceMethod = BINDING.find_method(taskClass, 'GetInstance', -1);
+
   /**
    * Alternatively, resolve_method_fqn may be used:
    *
@@ -48,7 +50,13 @@ function onAppInit() {
    */
 
   // NOTE: The argument is arbitrary.
-  const taskInstance = BINDING.wasm_binding_obj_new(1234);
+  const taskInstanceJSObj = BINDING.call_method(
+    getInstanceMethod,
+    null,
+    '',
+    []
+  );
+  const taskInstance = BINDING.extract_mono_obj(taskInstanceJSObj);
 
   self.onmessage = e => {
     const argument = e.data;
