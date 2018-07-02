@@ -4,7 +4,7 @@ platform="$(uname -s)"
 case "${platform}" in
 	MINGW*) ;&
 	MSYS*)     buildCmd="dotnet build";;
-	*)          buildCmd="xbuild";;
+	*)          buildCmd="msbuild";;
 esac
 
 
