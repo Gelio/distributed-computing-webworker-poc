@@ -3,9 +3,9 @@ using System.Reflection;
 
 namespace Common
 {
-    public static class TaskCreator
+    public static class SubtaskCreator
     {
-        public static ISubtask CreateTask(string assemblyName, string className)
+        public static ISubtask CreateSubtask(string assemblyName, string className)
         {
             var assembly = Assembly.Load(assemblyName);
             var classType = assembly.GetType(className);

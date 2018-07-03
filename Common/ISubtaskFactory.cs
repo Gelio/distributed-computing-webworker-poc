@@ -8,6 +8,6 @@ namespace Common
     public interface ISubtaskFactory
     {
         // TODO: use more developer-friendly types instead of string
-        void CreateNewTask(string input);
+        void CreateNewSubtask(string input);
     }
 }

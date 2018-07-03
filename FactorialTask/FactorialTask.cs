@@ -11,7 +11,7 @@ namespace FactorialTask
 
             foreach (var number in numbers)
             {
-                subtaskFactory.CreateNewTask(number);
+                subtaskFactory.CreateNewSubtask(number);
             }
         }
 

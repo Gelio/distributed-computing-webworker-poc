@@ -37,7 +37,7 @@
     <Compile Include="ITask.cs" />
     <Compile Include="ISubtask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TaskCreator.cs" />
+    <Compile Include="SubtaskCreator.cs" />
     <Compile Include="ISubtaskFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

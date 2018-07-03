@@ -11,7 +11,7 @@ namespace FactorialTask
         public FactorialSubtask()
         {
             Seed = new Random().Next();
-            Console.WriteLine("Constructor" + Seed);
+            Console.WriteLine("Constructor " + Seed);
         }
 
         public string Perform(string input)
@@ -44,11 +44,6 @@ namespace FactorialTask
             }
 
             return result;
-        }
-
-        public static FactorialSubtask GetInstance()
-        {
-            return new FactorialSubtask();
         }
     }
 }

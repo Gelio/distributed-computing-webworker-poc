@@ -21,15 +21,15 @@ namespace ServerRunner
             var taskAssemblyPath = Console.ReadLine();
             var taskAssembly = Assembly.LoadFrom(taskAssemblyPath);
             var task = GetTypeFromAssembly<ITask>(taskAssembly);
-            var distributedTask = GetTypeFromAssembly<ISubtask>(taskAssembly);
+            var subtask = GetTypeFromAssembly<ISubtask>(taskAssembly);
 
-            Console.WriteLine($"Input data for the distributed task ({distributedTask.GetType().FullName}):");
+            Console.WriteLine($"Input data for the distributed task ({subtask.GetType().FullName}):");
             var inputData = Console.ReadLine();
 
-            var taskFactory = new SubtaskFactory();
-            task.DefineTasks(inputData, taskFactory);
+            var subtaskFactory = new SubtaskFactory();
+            task.DefineTasks(inputData, subtaskFactory);
 
-            var results = taskFactory.TaskInputs.Select(distributedTask.Perform).ToArray();
+            var results = subtaskFactory.SubtasksInputs.Select(subtask.Perform).ToArray();
             var aggregatedResult = task.AggregateResults(inputData, results);
 
             Console.WriteLine("The final aggregated result is: " + aggregatedResult);
