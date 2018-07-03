@@ -3,12 +3,12 @@ using Common;
 
 namespace FactorialTask
 {
-    public class FactorialSubTask : ISubTask
+    public class FactorialSubtask : ISubtask
     {
         private int HighestResult = int.MinValue;
         private int Seed;
 
-        public FactorialSubTask()
+        public FactorialSubtask()
         {
             Seed = new Random().Next();
             Console.WriteLine("Constructor" + Seed);
@@ -46,9 +46,9 @@ namespace FactorialTask
             return result;
         }
 
-        public static FactorialSubTask GetInstance()
+        public static FactorialSubtask GetInstance()
         {
-            return new FactorialSubTask();
+            return new FactorialSubtask();
         }
     }
 }

@@ -37,7 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FactorialTask.cs" />
-    <Compile Include="FactorialSubTask.cs" />
+    <Compile Include="FactorialSubtask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

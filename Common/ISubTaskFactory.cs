@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Common
 {
-    public interface ISubTaskFactory
+    public interface ISubtaskFactory
     {
         // TODO: use more developer-friendly types instead of string
         void CreateNewTask(string input);

@@ -8,8 +8,8 @@ namespace Common
     public interface ITask
     {
         // TODO: use more developer-friendly types instead of string
-        // TODO: reference corresponding ISubTask from ITask
-        void DefineTasks(string input, ISubTaskFactory subTaskFactory);
+        // TODO: reference corresponding ISubtask from ITask
+        void DefineTasks(string input, ISubtaskFactory subtaskFactory);
 
         string AggregateResults(string input, string[] results);
     }

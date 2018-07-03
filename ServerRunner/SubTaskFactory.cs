@@ -4,7 +4,7 @@ using Common;
 
 namespace ServerRunner
 {
-    internal class SubTaskFactory : ISubTaskFactory
+    internal class SubtaskFactory : ISubtaskFactory
     {
         public List<string> TaskInputs { get; } = new List<string>();
 

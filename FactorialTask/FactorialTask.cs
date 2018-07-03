@@ -5,13 +5,13 @@ namespace FactorialTask
 {
     public class FactorialTask : ITask
     {
-        public void DefineTasks(string input, ISubTaskFactory subTaskFactory)
+        public void DefineTasks(string input, ISubtaskFactory subtaskFactory)
         {
             var numbers = input.Split(',');
 
             foreach (var number in numbers)
             {
-                subTaskFactory.CreateNewTask(number);
+                subtaskFactory.CreateNewTask(number);
             }
         }
 

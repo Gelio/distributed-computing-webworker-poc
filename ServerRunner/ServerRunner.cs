@@ -11,22 +11,22 @@ namespace ServerRunner
         public static void Main()
         {
             /**
-             * The DLL with the ISubTask and ITask is loaded here just in order to run the task and for the ITask
+             * The DLL with the ISubtask and ITask is loaded here just in order to run the task and for the ITask
              * to be able to aggregate the results.
              * 
              * In the final version the input data will be sent to the distributed nodes who will be responsible
-             * for executing the ISubTask compiled to JS.
+             * for executing the ISubtask compiled to JS.
              */
             Console.WriteLine("Path to DLL containing the task:");
             var taskAssemblyPath = Console.ReadLine();
             var taskAssembly = Assembly.LoadFrom(taskAssemblyPath);
             var task = GetTypeFromAssembly<ITask>(taskAssembly);
-            var distributedTask = GetTypeFromAssembly<ISubTask>(taskAssembly);
+            var distributedTask = GetTypeFromAssembly<ISubtask>(taskAssembly);
 
             Console.WriteLine($"Input data for the distributed task ({distributedTask.GetType().FullName}):");
             var inputData = Console.ReadLine();
 
-            var taskFactory = new SubTaskFactory();
+            var taskFactory = new SubtaskFactory();
             task.DefineTasks(inputData, taskFactory);
 
             var results = taskFactory.TaskInputs.Select(distributedTask.Perform).ToArray();
