@@ -39,22 +39,13 @@ function onAppInit() {
     -1
   );
 
-  const getInstanceMethod = BINDING.find_method(taskClass, 'GetInstance', -1);
+  const createTaskInstance = Module.mono_bind_static_method(
+    '[Common] Common.TaskCreator:CreateTask'
+  );
 
-  /**
-   * Alternatively, resolve_method_fqn may be used:
-   *
-   * ```ts
-   * const performMethod = BINDING.resolve_method_fqn('[FactorialTask] FactorialTask.FactorialTask:Perform');
-   * ```
-   */
-
-  // NOTE: The argument is arbitrary.
-  const taskInstanceJSObj = BINDING.call_method(
-    getInstanceMethod,
-    null,
-    '',
-    []
+  const taskInstanceJSObj = createTaskInstance(
+    config.assemblyName,
+    `${config.namespace}.${config.className}`
   );
   const taskInstance = BINDING.extract_mono_obj(taskInstanceJSObj);
 

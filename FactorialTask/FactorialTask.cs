@@ -43,10 +43,5 @@ namespace FactorialTask
 
             return result;
         }
-
-        public static FactorialTask GetInstance()
-        {
-            return new FactorialTask();
-        }
     }
 }
