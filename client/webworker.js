@@ -20,7 +20,7 @@ function onAppInit() {
   const config = {
     assemblyName: 'FactorialTask',
     namespace: 'FactorialTask',
-    className: 'FactorialTask',
+    className: 'FactorialSubtask',
     performMethodName: 'Perform'
   };
 
@@ -40,7 +40,7 @@ function onAppInit() {
   );
 
   const createTaskInstance = Module.mono_bind_static_method(
-    '[Common] Common.TaskCreator:CreateTask'
+    '[Common] Common.SubtaskCreator:CreateSubtask'
   );
 
   const taskInstanceJSObj = createTaskInstance(

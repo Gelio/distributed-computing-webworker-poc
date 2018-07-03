@@ -1,47 +1,23 @@
-using System;
+﻿using System.Linq;
 using Common;
 
 namespace FactorialTask
 {
     public class FactorialTask : ITask
     {
-        private int HighestResult = int.MinValue;
-        private int Seed;
-
-        public FactorialTask()
+        public void DefineTasks(string input, ISubtaskFactory subtaskFactory)
         {
-            Seed = new Random().Next();
-            Console.WriteLine("Constructor" + Seed);
+            var numbers = input.Split(',');
+
+            foreach (var number in numbers)
+            {
+                subtaskFactory.CreateNewSubtask(number);
+            }
         }
 
-        public string Perform(string input)
+        public string AggregateResults(string input, string[] results)
         {
-            var x = int.Parse(input);
-            var result = Factorial(x);
-
-            if (HighestResult < result)
-            {
-                HighestResult = result;
-            }
-
-            return result.ToString() + " " + HighestResult.ToString() + " " + Seed;
-        }
-
-        private int Factorial(int n)
-        {
-            if (n < 0)
-            {
-                return 0;
-            }
-
-            var result = 1;
-
-            for (var i = 1; i <= n; i++)
-            {
-                result *= i;
-            }
-
-            return result;
+            return results.Select(int.Parse).Sum().ToString();
         }
     }
 }
