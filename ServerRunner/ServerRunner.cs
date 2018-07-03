@@ -23,7 +23,7 @@ namespace ServerRunner
             var task = GetTypeFromAssembly<ITask>(taskAssembly);
             var subtask = GetTypeFromAssembly<ISubtask>(taskAssembly);
 
-            Console.WriteLine($"Input data for the distributed task ({subtask.GetType().FullName}):");
+            Console.WriteLine($"Input data for the distributed task ({task.GetType().FullName}):");
             var inputData = Console.ReadLine();
 
             var subtaskFactory = new SubtaskFactory();
