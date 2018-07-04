@@ -1,7 +1,7 @@
 # Distributed computing in JS using C# - proof of concept
 
 The idea is to write all the code in C#, split the solution into multiple projects - one of them
-will be compiled into JS and will be distributed, the other one will be included as a DLL on the
+will be compiled into WebAssembly and will be distributed, the other one will be included as a DLL on the
 server.
 
 The project consists of the following parts
@@ -9,8 +9,8 @@ The project consists of the following parts
 1.  C# solution
 2.  JS client
 
-They will be described below. The library used to compile C# into JS is
-[Bridge.NET](https://github.com/bridgedotnet/Bridge).
+They will be described below. The library used to compile C# into WebAssembly is
+[mono](https://github.com/mono/mono).
 
 ## C# solution
 
@@ -29,12 +29,8 @@ The C# solution contains 4 projects:
 - `FactorialSumDistributed` - the main task definition. The idea is to split the input data and then
   compute a factorial for each part, summing the results.
 
-- `FactorialTask` - the code that calculates the factorial. It will be compiled to JS via Bridge.NET
+- `FactorialTask` - the code that calculates the factorial. It will be compiled to WebAssembly via mono
   and will be run in the browser in a WebWorker.
-
-  In order for the JS code to run without errors all the shared code (`Common`) has to be included
-  as links/regular files in this project. One issue on GitHub suggests using a `Shared project` in
-  Visual Studio instead of a `Class library`, this is yet to be tested.
 
   Currently all the files from the `Common` project are added in the `FactorialTask` as links.
 
@@ -43,10 +39,16 @@ The C# solution contains 4 projects:
 
 ## JS client
 
-The JS client loads compiled code into a WebWorker and sends any input data from the form to the
+The JS client loads WebAssembly code into a WebWorker and sends any input data from the form to the
 worker, displaying the results as they arrive.
 
-It cannot be run directly from the filesystem due to how WebWorkers work. It has to be hosted using
+### Compile code to WebAssembly
+
+```shell
+./build.sh
+```
+
+Client cannot be run directly from the filesystem due to how WebWorkers work. It has to be hosted using
 a server.
 
 Python's `SimpleHTTPServer`:
@@ -61,4 +63,4 @@ or Node's `http-server` may be used:
 npx http-server -c-1
 ```
 
-The `webworker.html` file should be opened.
+The `client/webworker.html` file should be opened.

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using Common;
 
@@ -12,31 +10,27 @@ namespace ServerRunner
     {
         public static void Main()
         {
-            Console.WriteLine("Path to DLL containing the distributed task:");
-            var distributedTaskAssemblyPath = Console.ReadLine();
-            var distributedTaskAssembly = Assembly.LoadFrom(distributedTaskAssemblyPath);
-            var distributedTask = GetTypeFromAssembly<IDistributedTask>(distributedTaskAssembly);
-
             /**
-             * The DLL with the ITask is loaded here just in order to run the task and for the IDistributedTask
+             * The DLL with the ISubtask and ITask is loaded here just in order to run the task and for the ITask
              * to be able to aggregate the results.
              * 
              * In the final version the input data will be sent to the distributed nodes who will be responsible
-             * for executing the ITask compiled to JS.
+             * for executing the ISubtask compiled to JS.
              */
             Console.WriteLine("Path to DLL containing the task:");
             var taskAssemblyPath = Console.ReadLine();
             var taskAssembly = Assembly.LoadFrom(taskAssemblyPath);
             var task = GetTypeFromAssembly<ITask>(taskAssembly);
+            var subtask = GetTypeFromAssembly<ISubtask>(taskAssembly);
 
-            Console.WriteLine($"Input data for the distributed task ({distributedTask.GetType().FullName}):");
+            Console.WriteLine($"Input data for the distributed task ({task.GetType().FullName}):");
             var inputData = Console.ReadLine();
 
-            var taskFactory = new TaskFactory();
-            distributedTask.DefineTasks(inputData, taskFactory);
+            var subtaskFactory = new SubtaskFactory();
+            task.DefineTasks(inputData, subtaskFactory);
 
-            var results = taskFactory.TaskInputs.Select(task.Perform).ToArray();
-            var aggregatedResult = distributedTask.AggregateResults(inputData, results);
+            var results = subtaskFactory.SubtasksInputs.Select(subtask.Perform).ToArray();
+            var aggregatedResult = task.AggregateResults(inputData, results);
 
             Console.WriteLine("The final aggregated result is: " + aggregatedResult);
         }
@@ -50,11 +44,14 @@ namespace ServerRunner
                 if (typeExample == null)
                     continue;
 
-                if (assembly.CreateInstance(assemblyType.FullName) is T instance)
+                T instance = (T)assembly.CreateInstance(assemblyType.FullName);
+                if (instance != null)
+                {
                     return instance;
+                }
             }
 
-            throw new Exception("The assembly does not contain an class that implements the " + nameof(IDistributedTask) + " interface");
+            throw new Exception("The assembly does not contain an class that implements the " + typeof(T).Name + " interface");
         }
     }
 }

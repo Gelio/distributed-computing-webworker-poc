@@ -1,32 +1,23 @@
-﻿using Common;
+﻿using System.Linq;
+using Common;
 
 namespace FactorialTask
 {
     public class FactorialTask : ITask
     {
-        public string Perform(string input)
+        public void DefineTasks(string input, ISubtaskFactory subtaskFactory)
         {
-            var x = int.Parse(input);
-            var result = Factorial(x);
+            var numbers = input.Split(',');
 
-            return result.ToString();
+            foreach (var number in numbers)
+            {
+                subtaskFactory.CreateNewSubtask(number);
+            }
         }
 
-        private int Factorial(int n)
+        public string AggregateResults(string input, string[] results)
         {
-            if (n < 0)
-            {
-                return 0;
-            }
-
-            var result = 1;
-
-            for (var i = 1; i <= n; i++)
-            {
-                result *= i;
-            }
-
-            return result;
+            return results.Select(int.Parse).Sum().ToString();
         }
     }
 }
